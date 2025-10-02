@@ -1,5 +1,3 @@
-#![feature(async_closure)]
-
 use convert_case::{Case, Casing};
 use dotenvy::dotenv;
 use serenity::Client;
