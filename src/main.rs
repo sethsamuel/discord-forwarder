@@ -15,6 +15,8 @@ struct Message {
 
 async fn handle_client(stream: UnixStream, client: Arc<Client>, channel_id: ChannelId) {
     // let channel_id = client.http.get_guilds(None, Some(100));
+    // Piping command example:
+    // df -h | awk '{print}' ORS='\\n' | sed 's/^/```/;s/$/```/' | nc -U /tmp/discord/curium
 
     println!("reading stream");
     let stream = BufReader::new(stream);
@@ -24,7 +26,13 @@ async fn handle_client(stream: UnixStream, client: Arc<Client>, channel_id: Chan
         // let response = channel_id.say(client.http.http(), text).await;
         let response = client
             .http
-            .send_message(channel_id, vec![], &Message { content: text })
+            .send_message(
+                channel_id,
+                vec![],
+                &Message {
+                    content: text.replace("\\n", "\n"),
+                },
+            )
             .await;
         match response {
             Ok(r) => println!("sent message {:?}", r.content),
