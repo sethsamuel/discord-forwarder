@@ -199,7 +199,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "discord-forwader"
+name = "discord-forwarder"
 version = "0.1.0"
 dependencies = [
  "convert_case",
